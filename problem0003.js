@@ -7,7 +7,7 @@ What is the largest prime factor of the number 600851475143 ?
 function App(){
 	var self = this;
 	self.largestFactor = 0;
-	self.number = 20;
+	self.number = 600851475143;
 
 	self.init = function(){
 		self.instructions();
@@ -21,24 +21,27 @@ function App(){
 	};
 
 	self.getFactor = function(){
-		console.log(self.number);
 
+		var workingNumber = self.number;
 		var divBy = [];
 
-		for(var i = 0; i < self.number/2; i++){
-			if(self.number % i === 0){
-				divBy.push(i);
+		while(workingNumber > 1){
+			for(var i = 2; i <= workingNumber; i++){
+				if(workingNumber % i === 0){
+					divBy.push(i);
+					workingNumber = workingNumber / i;
+					break;
+				}
 			}
 		}
 
-		divBy.reverse();
-
-		var numToCheck = divBy.splice.splice(0, 1)
+		console.log(divBy);
+		self.largestFactor = Math.max.apply(null, divBy);
 
 	}
 
 	self.printFactor = function(){
-		//console.log(self.sum);
+		console.log(self.largestFactor);
 	}
 };
 
