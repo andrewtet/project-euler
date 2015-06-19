@@ -35,7 +35,6 @@ function App(){
 			}
 		}
 
-		console.log(divBy);
 		self.largestFactor = Math.max.apply(null, divBy);
 
 	}
