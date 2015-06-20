@@ -48,7 +48,7 @@ function App(primeToFind){
 		var isPrime = true;
 		var halfNum = Math.ceil(num / 2); // No number is divisable by over half
 
-		for(var i = 2; i < halfNum; i++){
+		for(var i = 2; i <= halfNum; i++){
 			if(num % i == 0){
 				isPrime = false;
 				break;
