@@ -16,6 +16,7 @@ function App(largest, smallest){
 		self.instructions();
 		self.getFactors();
 		self.getMaxFactors();
+		self.getMultiple();
 		self.printMultiple();
 	};
 
@@ -34,15 +35,12 @@ function App(largest, smallest){
 	self.getMaxFactors = function(){
 		for(f in self.factors){
 			var thisFactor = self.factors[f];
-
 			for(n in thisFactor){
-
-				if(!self.maxFactors[n]){
-					
+				if(!self.maxFactors[n] ||
+					self.maxFactors[n] < thisFactor[n]){
+					self.maxFactors[n] = thisFactor[n];
 				}
-				console.log('X', thisFactor, thisFactor[n]);
 			}
-
 		}
 	}
 
@@ -79,10 +77,25 @@ function App(largest, smallest){
 		return counts;
 	}
 
+	self.getMultiple = function(){
+		var multiple = 1;
+
+		for(n in self.maxFactors){
+			console.log(self.maxFactors[n]);
+			multiple *= Math.pow(n, self.maxFactors[n]);
+		}
+
+		self.smallestMultiple = multiple;
+	}
+
 	self.printMultiple = function(){
-		//console.log(self.largestPalindrome);
+		console.log(self.smallestMultiple);
 	}
 };
+
+//Test
+//var t = new App(10,1);
+//t.init();
 
 var a = new App(20,1);
 a.init();
