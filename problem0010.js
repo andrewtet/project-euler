@@ -23,7 +23,9 @@ function App(largest, smallest){
 	};
 
 	self.getSum = function(){
-		for(var i = self.smallestNumber; i <= self.largestNumber; i++){
+
+		self.sum = 2; // Priming with 2 allows us to start at 3 and skip all even numbers 
+		for(var i = 3; i <= self.largestNumber; i+= 2){
 			if(self.isPrime(i)){
 				self.sum += i;
 				console.log(i);
@@ -42,9 +44,8 @@ function App(largest, smallest){
 		}
 
 		var isPrime = true;
-		var halfNum = Math.ceil(num / 2); // No number is evenly divisable by over half
 
-		for(var i = 2; i <= halfNum; i++){
+		for(var i = 2; i <= Math.sqrt(num); i++){
 			if(num % i == 0){
 				isPrime = false;
 				break;
@@ -60,8 +61,8 @@ function App(largest, smallest){
 };
 
 //Test
-var t = new App(10,1);
-t.init();
+//var t = new App(10,1);
+//t.init();
 
-//var a = new App(1000);
-//a.init();
+var a = new App(2000000, 1);
+a.init();
