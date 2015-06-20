@@ -28,7 +28,6 @@ function App(largest, smallest){
 		for(var i = 3; i <= self.largestNumber; i+= 2){
 			if(self.isPrime(i)){
 				self.sum += i;
-				console.log(i);
 			}
 		}
 	};
@@ -61,8 +60,8 @@ function App(largest, smallest){
 };
 
 //Test
-//var t = new App(10,1);
-//t.init();
+// var t = new App(10,1);
+// t.init();
 
 var a = new App(2000000, 1);
 a.init();
