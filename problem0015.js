@@ -6,10 +6,10 @@ How many such routes are there through a 20×20 grid?
 
 */
 
-function App(gridHeight, gridWidth){
+function App(gridHeight){
 	var self = this;
 	self.gh = gridHeight;
-	self.gw = gridWidth;
+	self.gw = gridHeight;
 	self.matrix = [];
 	self.paths = 0;
 
@@ -34,6 +34,7 @@ function App(gridHeight, gridWidth){
 	self.getPaths = function(){
 		var m = self.createMatrix(self.gh + 1, self.gw + 1);
 		var x = self.populateMatrix(m);
+		self.getNumberFromMatrix();
 	};
 
 	self.createMatrix = function(gh, gw){
@@ -52,38 +53,44 @@ function App(gridHeight, gridWidth){
 	}
 
 	self.populateMatrix = function(matrix){
-		console.log(matrix);
-		var popMatrix = matrix.slice(); // copy array by value
+		var matrix = matrix;
+		var passes = matrix.length - 1;
+
+		for(var i = 0; i < passes; i++){
+			var m = self.addMatrixSinglePass(matrix);
+			matrix = m;
+		}
+
+		self.matrix = matrix;
+	}
+
+	self.addMatrixSinglePass = function(matrix){
+		var matrixTwo = [];
 
 		for(var i = 0; i < matrix.length; i++){
+			var row = [];
 			//j = width
 			//i = height
 			for(var j = 0; j < matrix[i].length; j++){
 
-				try{
-					var aboveVal = matrix[i - 1][j];
-					if(!aboveVal){aboveVal = 0;} // check for undefined
-				} catch(err){
-					var aboveVal = 0;
-				}
-				try{
-					var leftVal = matrix[i][j - 1];
-					if(!leftVal){leftVal = 0;} // check for undefined
-				} catch(err){
-					var leftVal = 0;
-				}
 
-				console.log(leftVal, aboveVal);
+				var aboveVal = (matrix[i - 1])? matrix[i - 1][j] : 0;
+				var leftVal = row[row.length - 1] || 0;
 
-				//popMatrix[i][j] = leftVal + aboveVal;
+				row.push(Math.max(leftVal + aboveVal, 1));
 			}
+			matrixTwo.push(row);
 		}
+		return matrixTwo;
+	}
 
-		console.log(popMatrix);
+	self.getNumberFromMatrix = function(){
+		var x = self.matrix.length - 1;
+		self.paths = self.matrix[x][x];
 	}
 
 	self.printPaths = function(){
-		//console.log(self.paths);
+		console.log(self.paths);
 
 		self.endTime = new Date().getTime();
 
@@ -91,12 +98,12 @@ function App(gridHeight, gridWidth){
 	};
 };
 
-var t = new App(2, 2);
-t.init(); // 6
-// var t = new App(3, 3);
+// var t = new App(2);
+// t.init(); // 6
+// var t = new App(3);
 // t.init(); // 20
-// var t = new App(4, 4);
+// var t = new App(4);
 // t.init(); // 70
 
-// var a = new App(1000000);
-// a.init();
+var a = new App(20);
+a.init();
